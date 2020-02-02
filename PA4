@@ -1,0 +1,35 @@
+clc
+clear
+
+%ARJUN BHATTI 100915440
+
+
+row =20 ;
+column =20 ;
+
+U = zeros(row, column);
+U(:,1) =1 ;
+U(:,column) = 1;
+[X,Y] = meshgrid(1:20,1:20);
+quiver(X,Y);
+
+
+for n = 1:25
+    figure(1);
+    surf(X,Y,U);
+    pause(.3);
+    A = imboxfilt(U,3);
+ 
+   for c = 2: column -1
+        for r = 1:row
+            if r == 1
+                U(r,c) =0;
+            elseif r == row
+                U(r,c) =0;
+            else
+                U(r,c) = U(r-1,c)+U(r+1,c)+U(r,c+1);
+               
+            end
+        end
+    end
+end
